@@ -84,7 +84,7 @@ INTELLIGENT RESEARCH PAPER SUMMARIZER WITH NOVELTY DETECTION/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/novelty-detection.git
+git clone https://github.com/jeevanandan19/INTELLIGENT-RESEARCH-PAPER-SUMMARIZER-WITH-NOVELTY-DETECTION.git
 cd novelty-detection
 ```
 
@@ -102,7 +102,7 @@ pip install -r requirements.txt
 ### 4️⃣ Configure Environment Variables
 Create a `.env` file:
 ```env
-CORE_API_KEY=your_core_api_key_here
+CORE_API_KEY=zj1gPHfwsAEcN6ql2JkoLCDOZQt5vYSp
 ```
 
 ### 5️⃣ Run the Application
