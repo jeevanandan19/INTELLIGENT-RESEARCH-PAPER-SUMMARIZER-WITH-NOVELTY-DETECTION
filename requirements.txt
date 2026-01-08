@@ -1,0 +1,11 @@
+flask
+python-docx
+pdfplumber
+nltk
+transformers
+sentence-transformers
+torch
+scikit-learn
+beautifulsoup4
+requests
+python-dotenv

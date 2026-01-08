@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI-Powered Research Paper Summarizer</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- JS -->
+  <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+<body>
+  
+  <!-- Background Animation -->
+  <div class="animated-bg"></div>
+
+  <div class="container glass-card fade-in">
+
+    <h1 class="title glow-text"> 🤖 Intelligent Research Paper Summarizer<br>with Novelty Detection</h1>
+
+    <p class="subtitle">Upload your Research Paper (PDF or DOCX) and get AI-powered structured summary + novelty score.</p>
+
+    {% if error %}
+      <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    <!-- Upload Form -->
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+
+      <div class="upload-box" id="uploadBox">
+        <input type="file" id="fileInput" name="paper" accept=".pdf,.docx" required hidden>
+        
+        <label for="fileInput" id="fileLabel" class="upload-label">
+          <div class="upload-icon">📄</div>
+          <span>Click or Drag your PDF / DOCX here</span>
+        </label>
+      </div>
+
+      <button type="submit" id="analyzeBtn" class="neon-btn">🚀 Analyze Paper</button>
+    </form>
+
+    <!-- Loading Animation -->
+    <div id="loading" class="hidden">
+      <div class="spinner"></div>
+      <p class="loading-text">Analyzing your paper... please wait ⏳</p>
+    </div>
+  </div>
+
+</body>
+</html>
