@@ -12,10 +12,7 @@ The system supports **PDF and DOCX files**, extracts structured information, fet
 ```
 INTELLIGENT RESEARCH PAPER SUMMARIZER WITH NOVELTY DETECTION/
 │
-├── .venv/                 # Python virtual environment
-├── .vscode/               # VS Code configuration
 │
-├── corpus/                # Local research corpus (offline similarity support)
 ├── models/                # Saved or downloaded ML/NLP models
 │
 ├── static/                # Frontend static assets
