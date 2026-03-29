@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Paper Analysis Result</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Dedicated CSS for result page -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='result_style.css') }}">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Dedicated JS for result page -->
+  <script defer src="{{ url_for('static', filename='result_script.js') }}"></script>
+</head>
+
+<body>
+  <div class="container">
+    <a href="{{ url_for('index') }}" class="back-btn">← Back to Home</a>
+    <h1>Analysis for {{ filename }}</h1>
+
+    <!-- Summary -->
+    <div class="result-card">
+      <h2>Structured Summary</h2>
+      <div class="summary-block">{{ summary }}</div>
+    </div>
+
+    <!-- Novelty -->
+    <div class="result-card">
+      <h2>Novelty Analysis</h2>
+      <h3>Novelty Category Reference</h3>
+        <ul class="metric-list">
+            <li>📄 <strong>Low Novelty:</strong> 0% – 49%</li>
+            <li>🧠 <strong>Moderate Novelty:</strong> 50% – 74%</li>
+            <li>🌟 <strong>Highly Novel:</strong> 75% – 100%</li>
+        </ul>
+      <p><strong>Novelty Score:</strong> {{ novelty_pct }}% — 
+        <span class="novelty-label">{{ novelty_label }}</span>
+      </p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="noveltyFill">{{ novelty_pct }}%</div>
+      </div>
+      <div class="result-card">
+        <h2>Top Novelty Words</h2>
+        {% if novelty_words %}
+          <p>{{ ', '.join(novelty_words) }}</p>
+        {% else %}
+          <p>No significant novelty words detected.</p>
+        {% endif %}
+      </div>
+      <h3>Calculation Summary</h3>
+      <ul class="metric-list">
+        <li><strong>Total Papers Retrieved:</strong> {{ metrics.total_papers }}</li>
+        <li><strong>Average Similarity:</strong> {{ (metrics.avg_similarity * 100) | round(2) }}%</li>
+        <li><strong>Maximum Similarity:</strong> {{ (metrics.max_similarity * 100) | round(2) }}%</li>
+        <li><strong>Final Novelty (1 − Max Similarity):</strong> {{ novelty_pct }}%</li>
+      </ul>
+    </div>
+    <!-- Similar Papers -->
+    <div class="result-card">
+      <h2>Top Similar Online Papers</h2>
+      {% if similar_papers %}
+        <div class="result-card">
+          <h2>📊 Similarity Visualization</h2>
+          <canvas id="similarityChart"
+            data-labels='{{ chart_labels | tojson }}'
+            data-values='{{ chart_values | tojson }}'
+            data-urls='{{ chart_urls | tojson }}'
+            data-sources='{{ chart_sources | tojson }}'>
+          </canvas>
+        </div>
+        {% for paper in similar_papers %}
+          <div class="paper-card">
+            <h3><a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a></h3>
+            <p class="paper-meta">📚 {{ paper.source }} &nbsp;|&nbsp; 🔗 Similarity: <strong>{{ (paper.similarity * 100) | round(2) }}%</strong></p>
+            <p class="paper-abstract">{{ paper.abstract[:300] }}{% if paper.abstract|length > 300 %}…{% endif %}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No similar papers found.</p>
+      {% endif %}
+    </div>
+
+    <!-- Download Button -->
+    <div style="text-align:center; margin-bottom: 30px;">
+      <button id="downloadBtn" class="download-btn">⬇️ Download Summary</button>
+    </div>
+  </div>
+</body>
+</html>
